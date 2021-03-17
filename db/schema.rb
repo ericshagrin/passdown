@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2021_03_11_204311) do
     t.string "status"
     t.string "description"
     t.integer "user_id"
-    t.integer "photos_count"
+    t.integer "photos_count", default: 0
     t.integer "interested_buyers_count"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

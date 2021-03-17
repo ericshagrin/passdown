@@ -9,7 +9,7 @@
 #  location                :string
 #  num_bath                :integer
 #  num_bdrms               :string
-#  photos_count            :integer
+#  photos_count            :integer          default(0)
 #  price                   :integer
 #  status                  :string
 #  created_at              :datetime         not null

@@ -9,7 +9,7 @@ class CreateApartments < ActiveRecord::Migration[6.0]
       t.string :status
       t.string :description
       t.integer :user_id
-      t.integer :photos_count
+      t.integer :photos_count, {:default => 0}
       t.integer :interested_buyers_count
 
       t.timestamps

@@ -1,4 +1,6 @@
 class InterestedBuyersController < ApplicationController
+  skip_before_action(:force_user_sign_in)
+
   def index
     matching_interested_buyers = InterestedBuyer.all
 
