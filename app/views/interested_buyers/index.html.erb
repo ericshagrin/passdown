@@ -1,0 +1,134 @@
+<div>
+  <div>
+    <h1>
+      List of all interested buyers
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new interested buyer
+    </h2>
+
+    <form action="/insert_interested_buyer" method="post">
+      <div>
+        <label for="apt_id_box">
+          Apt
+        </label>
+
+        <input type="text" id="apt_id_box" name="query_apt_id">
+      </div>
+
+      <div>
+        <label for="email_box">
+          Email
+        </label>
+
+        <input type="text" id="email_box" name="query_email">
+      </div>
+
+      <div>
+        <label for="name_box">
+          Name
+        </label>
+
+        <input type="text" id="name_box" name="query_name">
+      </div>
+
+      <div>
+        <label for="phone_number_box">
+          Phone number
+        </label>
+
+        <input type="text" id="phone_number_box" name="query_phone_number">
+      </div>
+
+      <button>
+        Create interested buyer
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table>
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Apt
+        </th>
+
+        <th>
+          Email
+        </th>
+
+        <th>
+          Name
+        </th>
+
+        <th>
+          Phone number
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_interested_buyers.each do |an_interested_buyer| %>
+      <tr>
+        <td>
+          <%= an_interested_buyer.id %>
+        </td>
+
+        <td>
+          <%= an_interested_buyer.apt_id %>
+        </td>
+
+        <td>
+          <%= an_interested_buyer.email %>
+        </td>
+
+        <td>
+          <%= an_interested_buyer.name %>
+        </td>
+
+        <td>
+          <%= an_interested_buyer.phone_number %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(an_interested_buyer.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(an_interested_buyer.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/interested_buyers/<%= an_interested_buyer.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

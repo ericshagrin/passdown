@@ -1,0 +1,206 @@
+<div>
+  <div>
+    <h1>
+      Apartment #<%= @the_apartment.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/apartments">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_apartment/<%= @the_apartment.id %>">
+          Delete apartment
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Price
+      </dt>
+      <dd>
+        <%= @the_apartment.price %>
+      </dd>
+
+      <dt>
+        Location
+      </dt>
+      <dd>
+        <%= @the_apartment.location %>
+      </dd>
+
+      <dt>
+        Num bath
+      </dt>
+      <dd>
+        <%= @the_apartment.num_bath %>
+      </dd>
+
+      <dt>
+        Num bdrms
+      </dt>
+      <dd>
+        <%= @the_apartment.num_bdrms %>
+      </dd>
+
+      <dt>
+        Furniture amt
+      </dt>
+      <dd>
+        <%= @the_apartment.furniture_amt %>
+      </dd>
+
+      <dt>
+        Status
+      </dt>
+      <dd>
+        <%= @the_apartment.status %>
+      </dd>
+
+      <dt>
+        Description
+      </dt>
+      <dd>
+        <%= @the_apartment.description %>
+      </dd>
+
+      <dt>
+        User
+      </dt>
+      <dd>
+        <%= @the_apartment.user_id %>
+      </dd>
+
+      <dt>
+        Photos count
+      </dt>
+      <dd>
+        <%= @the_apartment.photos_count %>
+      </dd>
+
+      <dt>
+        Interested buyers count
+      </dt>
+      <dd>
+        <%= @the_apartment.interested_buyers_count %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_apartment.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_apartment.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit apartment
+    </h2>
+
+    <form action="/modify_apartment/<%= @the_apartment.id %>"  method="post" >
+      <div>
+        <label for="price_box">
+          Price
+        </label>
+
+        <input type="text" id="price_box" name="query_price" value="<%= @the_apartment.price %>">
+      </div>
+
+      <div>
+        <label for="location_box">
+          Location
+        </label>
+
+        <input type="text" id="location_box" name="query_location" value="<%= @the_apartment.location %>">
+      </div>
+
+      <div>
+        <label for="num_bath_box">
+          Num bath
+        </label>
+
+        <input type="text" id="num_bath_box" name="query_num_bath" value="<%= @the_apartment.num_bath %>">
+      </div>
+
+      <div>
+        <label for="num_bdrms_box">
+          Num bdrms
+        </label>
+
+        <input type="text" id="num_bdrms_box" name="query_num_bdrms" value="<%= @the_apartment.num_bdrms %>">
+      </div>
+
+      <div>
+        <label for="furniture_amt_box">
+          Furniture amt
+        </label>
+
+        <input type="text" id="furniture_amt_box" name="query_furniture_amt" value="<%= @the_apartment.furniture_amt %>">
+      </div>
+
+      <div>
+        <label for="status_box">
+          Status
+        </label>
+
+        <input type="text" id="status_box" name="query_status" value="<%= @the_apartment.status %>">
+      </div>
+
+      <div>
+        <label for="description_box">
+          Description
+        </label>
+
+        <input type="text" id="description_box" name="query_description" value="<%= @the_apartment.description %>">
+      </div>
+
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_apartment.user_id %>">
+      </div>
+
+      <div>
+        <label for="photos_count_box">
+          Photos count
+        </label>
+
+        <input type="text" id="photos_count_box" name="query_photos_count" value="<%= @the_apartment.photos_count %>">
+      </div>
+
+      <div>
+        <label for="interested_buyers_count_box">
+          Interested buyers count
+        </label>
+
+        <input type="text" id="interested_buyers_count_box" name="query_interested_buyers_count" value="<%= @the_apartment.interested_buyers_count %>">
+      </div>
+
+      <button>
+        Update apartment
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

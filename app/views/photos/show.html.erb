@@ -1,0 +1,86 @@
+<div>
+  <div>
+    <h1>
+      Photo #<%= @the_photo.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/photos">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_photo/<%= @the_photo.id %>">
+          Delete photo
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Apt
+      </dt>
+      <dd>
+        <%= @the_photo.apt_id %>
+      </dd>
+
+      <dt>
+        Picture
+      </dt>
+      <dd>
+        <%= @the_photo.picture %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_photo.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_photo.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit photo
+    </h2>
+
+    <form action="/modify_photo/<%= @the_photo.id %>"  method="post" >
+      <div>
+        <label for="apt_id_box">
+          Apt
+        </label>
+
+        <input type="text" id="apt_id_box" name="query_apt_id" value="<%= @the_photo.apt_id %>">
+      </div>
+
+      <div>
+        <label for="picture_box">
+          Picture
+        </label>
+
+        <input type="text" id="picture_box" name="query_picture" value="<%= @the_photo.picture %>">
+      </div>
+
+      <button>
+        Update photo
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

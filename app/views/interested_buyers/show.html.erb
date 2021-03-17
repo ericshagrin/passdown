@@ -1,0 +1,116 @@
+<div>
+  <div>
+    <h1>
+      Interested buyer #<%= @the_interested_buyer.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/interested_buyers">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_interested_buyer/<%= @the_interested_buyer.id %>">
+          Delete interested buyer
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Apt
+      </dt>
+      <dd>
+        <%= @the_interested_buyer.apt_id %>
+      </dd>
+
+      <dt>
+        Email
+      </dt>
+      <dd>
+        <%= @the_interested_buyer.email %>
+      </dd>
+
+      <dt>
+        Name
+      </dt>
+      <dd>
+        <%= @the_interested_buyer.name %>
+      </dd>
+
+      <dt>
+        Phone number
+      </dt>
+      <dd>
+        <%= @the_interested_buyer.phone_number %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_interested_buyer.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_interested_buyer.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit interested buyer
+    </h2>
+
+    <form action="/modify_interested_buyer/<%= @the_interested_buyer.id %>"  method="post" >
+      <div>
+        <label for="apt_id_box">
+          Apt
+        </label>
+
+        <input type="text" id="apt_id_box" name="query_apt_id" value="<%= @the_interested_buyer.apt_id %>">
+      </div>
+
+      <div>
+        <label for="email_box">
+          Email
+        </label>
+
+        <input type="text" id="email_box" name="query_email" value="<%= @the_interested_buyer.email %>">
+      </div>
+
+      <div>
+        <label for="name_box">
+          Name
+        </label>
+
+        <input type="text" id="name_box" name="query_name" value="<%= @the_interested_buyer.name %>">
+      </div>
+
+      <div>
+        <label for="phone_number_box">
+          Phone number
+        </label>
+
+        <input type="text" id="phone_number_box" name="query_phone_number" value="<%= @the_interested_buyer.phone_number %>">
+      </div>
+
+      <button>
+        Update interested buyer
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
