@@ -14,6 +14,7 @@ class InterestedBuyer < ApplicationRecord
   validates(:name, { :presence => true })
   validates(:email, { :presence => true })
   validates(:apt_id, { :presence => true })
+  validates(:apt_id, {uniqueness: { scope: :email }})
 
   belongs_to(:apt, { :required => false, :class_name => "Apartment", :foreign_key => "apt_id", :counter_cache => true })
   has_one(:seller, { :through => :apt, :source => :seller })

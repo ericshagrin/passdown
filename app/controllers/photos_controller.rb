@@ -20,14 +20,14 @@ class PhotosController < ApplicationController
 
   def create
     the_photo = Photo.new
-    the_photo.apt_id = params.fetch("query_apt_id")
+    the_photo.apt_id = @current_user.apt_id
     the_photo.picture = params.fetch("query_picture")
 
     if the_photo.valid?
       the_photo.save
-      redirect_to("/photos", { :notice => "Photo created successfully." })
+      redirect_to("/", { :notice => "Apartment created successfully." })
     else
-      redirect_to("/photos", { :notice => "Photo failed to create successfully." })
+      redirect_to("/", { :notice => "Apartment failed to create successfully." })
     end
   end
 

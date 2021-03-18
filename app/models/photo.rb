@@ -16,4 +16,8 @@ class Photo < ApplicationRecord
   belongs_to(:apt, { :required => false, :class_name => "Apartment", :foreign_key => "apt_id", :counter_cache => true })
 
   has_one(:seller, { :through => :apt, :source => :seller })
+
+  mount_uploader :picture, PictureUploader
+
 end
+

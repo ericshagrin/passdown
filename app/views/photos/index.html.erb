@@ -14,13 +14,9 @@
       Add a new photo
     </h2>
 
-    <form action="/insert_photo" method="post">
+    <form action="/insert_photo" method="post" class="form-horizontal" enctype="multipart/form-data">
       <div>
-        <label for="apt_id_box">
-          Apt
-        </label>
-
-        <input type="text" id="apt_id_box" name="query_apt_id">
+        <input type="hidden" id="apt_id_box" name="query_apt_id" value="<%=@current_user.apt_id%>">
       </div>
 
       <div>
@@ -28,7 +24,7 @@
           Picture
         </label>
 
-        <input type="text" id="picture_box" name="query_picture">
+        <input type="file" id="picture_box" name="query_picture">
       </div>
 
       <button>

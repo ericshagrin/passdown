@@ -28,9 +28,9 @@ class InterestedBuyersController < ApplicationController
 
     if the_interested_buyer.valid?
       the_interested_buyer.save
-      redirect_to("/interested_buyers", { :notice => "Interested buyer created successfully." })
+      redirect_to("/apartments/#{the_interested_buyer.apt_id}", { :notice => "Interested buyer created successfully." })
     else
-      redirect_to("/interested_buyers", { :notice => "Interested buyer failed to create successfully." })
+      redirect_to("/apartments/#{the_interested_buyer.apt_id}", { :notice => "Interested buyer failed to create successfully." })
     end
   end
 

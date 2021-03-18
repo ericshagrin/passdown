@@ -11,12 +11,17 @@
         </a>
       </div>
 
+  <%begin %>
+  <% if @current_user.id == @the_apartment.user_id%>
       <div>
         <a href="/delete_apartment/<%= @the_apartment.id %>">
           Delete apartment
         </a>
       </div>
     </div>
+  <%end %>
+  <%rescue%>
+  <%end%>
 
     <dl>
       <dt>
@@ -66,20 +71,6 @@
       </dt>
       <dd>
         <%= @the_apartment.description %>
-      </dd>
-
-      <dt>
-        User
-      </dt>
-      <dd>
-        <%= @the_apartment.user_id %>
-      </dd>
-
-      <dt>
-        Photos count
-      </dt>
-      <dd>
-        <%= @the_apartment.photos_count %>
       </dd>
 
       <dt>
@@ -134,34 +125,62 @@
 
       <div>
         <label for="num_bath_box">
-          Num bath
+          Number bath
+              <select name="query_num_bath" id="num_bath_box">
+                <option disabled selected value> <%=@the_apartment.num_bath%> </option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+            </select>
         </label>
-
-        <input type="text" id="num_bath_box" name="query_num_bath" value="<%= @the_apartment.num_bath %>">
       </div>
 
       <div>
         <label for="num_bdrms_box">
-          Num bdrms
+            Number of Bedrooms
+            <select name="query_num_bdrms" id="num_bdrms_box">
+                <option disabled selected value> <%=@the_apartment.num_bdrms%> </option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+            </select>
         </label>
 
-        <input type="text" id="num_bdrms_box" name="query_num_bdrms" value="<%= @the_apartment.num_bdrms %>">
       </div>
 
       <div>
         <label for="furniture_amt_box">
-          Furniture amt
+            Amount of Furniture 
+            <select name="furniture_amt_box" id="query_furniture_amt">
+              <option disabled selected value> <%= @the_apartment.furniture_amt%> </option>
+              <option value="fully_furnished">Fully Furnished</option>
+              <option value="mostly_furnished">Fully Unfurnished</option>
+              <option value="mostly_unfurnished">Mostly Unfurnished</option>
+              <option value="unfurnished">Unfurnished</option>
+          </select>
+        </label>
         </label>
 
-        <input type="text" id="furniture_amt_box" name="query_furniture_amt" value="<%= @the_apartment.furniture_amt %>">
       </div>
 
       <div>
         <label for="status_box">
           Status
+            <select name="query_status" id="status_box">
+              <option disabled selected value> <%= @the_apartment.status%> </option>
+              <option value="Looking for a Tenant">Fully Furnished</option>
+              <option value="In talks ">Fully Unfurnished</option>
+              <option value="Passed Down">Mostly Unfurnished</option>
+          </select>
         </label>
-
-        <input type="text" id="status_box" name="query_status" value="<%= @the_apartment.status %>">
       </div>
 
       <div>
@@ -173,14 +192,6 @@
       </div>
 
       <div>
-        <label for="user_id_box">
-          User
-        </label>
-
-        <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_apartment.user_id %>">
-      </div>
-
-      <div>
         <label for="photos_count_box">
           Photos count
         </label>
@@ -188,13 +199,6 @@
         <input type="text" id="photos_count_box" name="query_photos_count" value="<%= @the_apartment.photos_count %>">
       </div>
 
-      <div>
-        <label for="interested_buyers_count_box">
-          Interested buyers count
-        </label>
-
-        <input type="text" id="interested_buyers_count_box" name="query_interested_buyers_count" value="<%= @the_apartment.interested_buyers_count %>">
-      </div>
 
       <button>
         Update apartment
@@ -204,23 +208,22 @@
 </div>
 <%end%>
 
+<hr>
 
-
-<% if @current_user.id != @the_apartment.user_id %>
+<% if !@current_user or @current_user.id != @the_apartment.user_id %>
 <div>
   <div>
     <h2>
       Add a new interested buyer
     </h2>
 
-    <form action="/insert_interested_buyer" method="post">
-      <div>
-        <label for="apt_id_box">
-          Apt
-        </label>
+    <form action="/insert_interested_buyer" method="post" >
 
-        <input type="text" id="apt_id_box" name="query_apt_id">
+      <div>
+        <input type="hidden" id="apt_id_box" name="query_apt_id" value="<%=@the_apartment.id%>">
       </div>
+      <div>
+
 
       <div>
         <label for="email_box">
@@ -293,8 +296,8 @@
 <%end%>
 
 
-<%if @list_of_interested_buyers != NULL%>
-<%if @current_user == @the_apartment.user_id%>
+<%if @list_of_interested_buyers != nil%>
+<%if @current_user.id != @the_apartment.user_id%>
       <% @list_of_interested_buyers.each do |an_interested_buyer| %>
       <tr>
         <td>

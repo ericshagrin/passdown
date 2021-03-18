@@ -1,9 +1,9 @@
 class ApartmentsController < ApplicationController
   skip_before_action(:force_user_sign_in, { :only => [:index, :show]})
   def index
-    matching_apartments = Apartment.all
+    @q = Apartment.ransack(params[:q])
+    @list_of_apartments = @q.result
 
-    @list_of_apartments = matching_apartments.order({ :created_at => :desc })
 
     render({ :template => "apartments/index.html.erb" })
   end
@@ -25,17 +25,19 @@ class ApartmentsController < ApplicationController
     the_apartment.num_bath = params.fetch("query_num_bath")
     the_apartment.num_bdrms = params.fetch("query_num_bdrms")
     the_apartment.furniture_amt = params.fetch("query_furniture_amt")
-    the_apartment.status = params.fetch("query_status")
+    the_apartment.status = "Unsold"
     the_apartment.description = params.fetch("query_description")
-    the_apartment.user_id = params.fetch("query_user_id")
-    the_apartment.photos_count = params.fetch("query_photos_count")
-    the_apartment.interested_buyers_count = params.fetch("query_interested_buyers_count")
+    the_apartment.user_id = @current_user.id
+    the_apartment.photos_count = 0
+    the_apartment.interested_buyers_count = 0
+
 
     if the_apartment.valid?
       the_apartment.save
-      redirect_to("/apartments", { :notice => "Apartment created successfully." })
+    
+      redirect_to("/", {:notice => "Apartment created successfully."})
     else
-      redirect_to("/apartments", { :notice => "Apartment failed to create successfully." })
+      redirect_to("/", { :notice => "Apartment failed to create successfully." })
     end
   end
 
@@ -50,9 +52,9 @@ class ApartmentsController < ApplicationController
     the_apartment.furniture_amt = params.fetch("query_furniture_amt")
     the_apartment.status = params.fetch("query_status")
     the_apartment.description = params.fetch("query_description")
-    the_apartment.user_id = params.fetch("query_user_id")
+    the_apartment.user_id = @current_user.id
     the_apartment.photos_count = params.fetch("query_photos_count")
-    the_apartment.interested_buyers_count = params.fetch("query_interested_buyers_count")
+    the_apartment.interested_buyers_count = the_apartment.interested_buyers_count
 
     if the_apartment.valid?
       the_apartment.save

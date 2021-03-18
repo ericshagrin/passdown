@@ -1,21 +1,15 @@
-<div>
-  <div>
-    <h1>
-      List of all apartments
-    </h1>
-  </div>
-</div>
+
 
 <hr>
 
-<%if @current_user != NULL %>
+<%if @current_user %>
 <div>
   <div>
     <h2>
       Add a new apartment
     </h2>
 
-    <form action="/insert_apartment" method="post">
+    <form action="/insert_apartment" method="post" class="form-horizontal" enctype="multipart/form-data">
       <div>
         <label for="price_box">
           Price
@@ -34,34 +28,47 @@
 
       <div>
         <label for="num_bath_box">
-          Num bath
+            Number Bathrooms
+            <select name="query_num_bath" id="num_bath_box">
+                <option disabled selected value> - select an option - </option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+            </select>
         </label>
 
-        <input type="text" id="num_bath_box" name="query_num_bath">
       </div>
 
       <div>
         <label for="num_bdrms_box">
-          Num bdrms
-        </label>
-
-        <input type="text" id="num_bdrms_box" name="query_num_bdrms">
+            Number Bedrooms
+            <select name="query_num_bdrms" id="num_bdrms_box">
+                <option disabled selected value> - select an option - </option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+            </select>
       </div>
 
       <div>
         <label for="furniture_amt_box">
-          Furniture amt
+          Amount of Furniture
+          <select name="query_furniture_amt" id="furniture_amt_box">
+              <option disabled selected value> - select an option - </option>
+              <option value="fully_furnished">Fully Furnished</option>
+              <option value="mostly_furnished">Mostly Furnished</option>
+              <option value="mostly_unfurnished">Mostly Unfurnished</option>
+              <option value="unfurnished">Unfurnished</option>
+          </select>
         </label>
-
-        <input type="text" id="furniture_amt_box" name="query_furniture_amt">
-      </div>
-
-      <div>
-        <label for="status_box">
-          Status
-        </label>
-
-        <input type="text" id="status_box" name="query_status">
       </div>
 
       <div>
@@ -73,28 +80,17 @@
       </div>
 
       <div>
-        <label for="user_id_box">
-          User
-        </label>
-
-        <input type="text" id="user_id_box" name="query_user_id">
+        <input type="hidden" id="apt_id_box" name="query_apt_id" value="<%=@current_user.apt_id%>">
       </div>
 
       <div>
-        <label for="photos_count_box">
-          Photos count
+        <label for="picture_box">
+          Picture
         </label>
 
-        <input type="text" id="photos_count_box" name="query_photos_count">
+        <input type="file" id="picture_box" name="query_picture">
       </div>
 
-      <div>
-        <label for="interested_buyers_count_box">
-          Interested buyers count
-        </label>
-
-        <input type="text" id="interested_buyers_count_box" name="query_interested_buyers_count">
-      </div>
 
       <button>
         Create apartment
@@ -103,17 +99,213 @@
   </div>
 </div>
 
+
+
+
+
+
+
 <% end %>
+
+<hr>
+<div>
+  <div>
+    <h1>
+      List of all apartments
+    </h1>
+  </div>
+</div>
+
+
+<hr>
+<%= search_form_for @q do |f| %>
+  <p>Narrow results:</p>
+
+  <div>
+    <%= f.label :price_lteq, "Price max" %>    
+    <%= f.text_field :price_lteq, :placeholder => "What is the most amount of bathrooms?" %>
+
+
+
+  </div>
+
+  <div>
+    <%= f.label :num_bath_gteq, "Minimum number bathrooms" %>
+    <select name="q[num_bath_gteq]" id="num_bath_gteq">
+      <%begin%>
+        <option value=""></option>
+        <option value="1" <%="selected" if params.fetch("q").fetch("num_bath_gteq") == "1"%>>1</option>
+        <option value="2" <%="selected" if params.fetch("q").fetch("num_bath_gteq") == "2"%>>2</option>
+        <option value="3" <%="selected" if params.fetch("q").fetch("num_bath_gteq") == "3"%>>3</option>
+        <option value="4" <%="selected" if params.fetch("q").fetch("num_bath_gteq") == "4"%>>4</option>
+        <option value="5" <%="selected" if params.fetch("q").fetch("num_bath_gteq") == "5"%>>5</option>
+        <option value="6" <%="selected" if params.fetch("q").fetch("num_bath_gteq") == "6"%>>6</option>
+        <option value="7" <%="selected" if params.fetch("q").fetch("num_bath_gteq") == "7"%>>7</option>
+      <%rescue%>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+      <%end %>
+    </select>
+
+
+    <%= f.label :num_bath_lteq, "Maximum number bathrooms " %>
+    <select name="q[num_bath_lteq]" id="num_bath_lteq">
+      <%begin%>
+        <option value=""></option>
+        <option value="1" <%="selected" if params.fetch("q").fetch("num_bath_lteq") == "1"%>>1</option>
+        <option value="2" <%="selected" if params.fetch("q").fetch("num_bath_lteq") == "2"%>>2</option>
+        <option value="3" <%="selected" if params.fetch("q").fetch("num_bath_lteq") == "3"%>>3</option>
+        <option value="4" <%="selected" if params.fetch("q").fetch("num_bath_lteq") == "4"%>>4</option>
+        <option value="5" <%="selected" if params.fetch("q").fetch("num_bath_lteq") == "5"%>>5</option>
+        <option value="6" <%="selected" if params.fetch("q").fetch("num_bath_lteq") == "6"%>>6</option>
+        <option value="7" <%="selected" if params.fetch("q").fetch("num_bath_lteq") == "7"%>>7</option>
+      <%rescue%>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+      <%end %>
+    </select>
+  </div>
+
+
+  <div>
+    <%= f.label :num_bdrms_gteq, "Minimum number bedrooms" %>
+    <select name="q[num_bdrms_gteq]" id="num_bdrms_gteq">
+      <%begin%>
+        <option value=""></option>
+        <option value="1" <%="selected" if params.fetch("q").fetch("num_bdrms_gteq") == "1"%>>1</option>
+        <option value="2" <%="selected" if params.fetch("q").fetch("num_bdrms_gteq") == "2"%>>2</option>
+        <option value="3" <%="selected" if params.fetch("q").fetch("num_bdrms_gteq") == "3"%>>3</option>
+        <option value="4" <%="selected" if params.fetch("q").fetch("num_bdrms_gteq") == "4"%>>4</option>
+        <option value="5" <%="selected" if params.fetch("q").fetch("num_bdrms_gteq") == "5"%>>5</option>
+        <option value="6" <%="selected" if params.fetch("q").fetch("num_bdrms_gteq") == "6"%>>6</option>
+        <option value="7" <%="selected" if params.fetch("q").fetch("num_bdrms_gteq") == "7"%>>7</option>
+      <%rescue%>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+      <%end %>
+    </select>
+
+
+    <%= f.label :num_bdrms_lteq, "Maximum number bedrooms" %>
+    <select name="q[num_bdrms_lteq]" id="num_bdrms_lteq">
+      <%begin%>
+        <option value=""></option>
+        <option value="1" <%="selected" if params.fetch("q").fetch("num_bdrms_lteq") == "1"%>>1</option>
+        <option value="2" <%="selected" if params.fetch("q").fetch("num_bdrms_lteq") == "2"%>>2</option>
+        <option value="3" <%="selected" if params.fetch("q").fetch("num_bdrms_lteq") == "3"%>>3</option>
+        <option value="4" <%="selected" if params.fetch("q").fetch("num_bdrms_lteq") == "4"%>>4</option>
+        <option value="5" <%="selected" if params.fetch("q").fetch("num_bdrms_lteq") == "5"%>>5</option>
+        <option value="6" <%="selected" if params.fetch("q").fetch("num_bdrms_lteq") == "6"%>>6</option>
+        <option value="7" <%="selected" if params.fetch("q").fetch("num_bdrms_lteq") == "7"%>>7</option>
+      <%rescue%>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+      <%end %>
+    </select>
+  </div>
+
+
+
+  <div>
+    <%= f.label :furniture_amt_eq, "Amount of furniture" %>
+    <select name="q[furniture_amt_eq]" id="furniture_amt_eq">
+      <%begin%>
+        <option value=""></option>
+
+        <option value="fully_furnished" <%="selected" if params.fetch("q").fetch("furniture_amt_eq") == "fully_furnished"%>>Fully Furnished</option>
+
+        <option value="mostly_furnished" <%="selected" if params.fetch("q").fetch("furniture_amt_eq") == "mostly_furnished"%>>Mostly Furnished</option>
+
+        <option value="mostly_unfurnished" <%="selected" if params.fetch("q").fetch("furniture_amt_eq") == "mostly_unfurnished"%>>Mostly Unfurnished</option>
+
+        <option value="unfurnished" <%="selected" if params.fetch("q").fetch("furniture_amt_eq") == "unfurnished"%>>Unfurnished</option>
+
+      <%rescue%>
+          <option value="fully_furnished">Fully Furnished</option>
+          <option value="mostly_furnished">Mostly Furnished</option>
+          <option value="mostly_unfurnished">Mostly Unfurnished</option>
+          <option value="unfurnished">Unfurnished</option>
+      <%end %>
+    </select>  </div>
+
+
+  <%= f.submit :class => "btn btn-primary btn-block" %>
+  
+  <a href="/">Clear filters</a>
+<% end %>
+<hr>
+
+
+
+
+<div>
+  <div id="map" style='width: 800px; height: 400px;'></div>
+</div>
+
+<script>
+  function initMap() {
+    var mapDiv = document.getElementById('map');
+
+    var map = new google.maps.Map(mapDiv);
+
+    var bounds = new google.maps.LatLngBounds();
+    
+    var infowindow = new google.maps.InfoWindow({
+      content: "Click Content" 
+    });
+    
+    var marker = new google.maps.Marker({
+      position: {lat: 41.8381065, lng: -87.6512738}, 
+      map: map,
+      title: 'Hello World!',
+      icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' 
+    });
+    
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
+
+  bounds.extend(new google.maps.LatLng(41.8381065, -87.6512738 ));
+
+  map.fitBounds(bounds);
+  };
+  
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=[YOUR_API_KEY]&callback=initMap"
+async defer></script>
+
+
+
+
+
+
+
 
 <hr>
 <div>
   <div>
     <table>
       <tr>
-        <th>
-          ID
-        </th>
-
         <th>
           Price
         </th>
@@ -143,18 +335,6 @@
         </th>
 
         <th>
-          User
-        </th>
-
-        <th>
-          Photos count
-        </th>
-
-        <th>
-          Interested buyers count
-        </th>
-
-        <th>
           Created at
         </th>
 
@@ -168,9 +348,6 @@
 
       <% @list_of_apartments.each do |an_apartment| %>
       <tr>
-        <td>
-          <%= an_apartment.id %>
-        </td>
 
         <td>
           <%= an_apartment.price %>
@@ -200,13 +377,6 @@
           <%= an_apartment.description %>
         </td>
 
-        <td>
-          <%= an_apartment.user_id %>
-        </td>
-
-        <td>
-          <%= an_apartment.photos_count %>
-        </td>
 
         <td>
           <%= an_apartment.interested_buyers_count %>
