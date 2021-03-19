@@ -25,6 +25,8 @@ class Apartment < ApplicationRecord
   validates(:location, { :presence => true })
   validates(:furniture_amt, { :presence => true })
   validates(:description, { :presence => true })
+  validates(:user_id, { :uniqueness => true })
+
 
   belongs_to(:seller, { :required => false, :class_name => "User", :foreign_key => "user_id" })
   

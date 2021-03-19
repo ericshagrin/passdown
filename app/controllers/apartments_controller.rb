@@ -19,26 +19,39 @@ class ApartmentsController < ApplicationController
   end
 
   def create
-    the_apartment = Apartment.new
-    the_apartment.price = params.fetch("query_price")
-    the_apartment.location = params.fetch("query_location")
-    the_apartment.num_bath = params.fetch("query_num_bath")
-    the_apartment.num_bdrms = params.fetch("query_num_bdrms")
-    the_apartment.furniture_amt = params.fetch("query_furniture_amt")
-    the_apartment.status = "Unsold"
-    the_apartment.description = params.fetch("query_description")
-    the_apartment.user_id = @current_user.id
-    the_apartment.photos_count = 0
-    the_apartment.interested_buyers_count = 0
+      the_apartment = Apartment.new
+      the_apartment.price = params.fetch("query_price")
+      the_apartment.location = params.fetch("query_location")
+      the_apartment.num_bath = params.fetch("query_num_bath")
+      the_apartment.num_bdrms = params.fetch("query_num_bdrms")
+      the_apartment.furniture_amt = params.fetch("query_furniture_amt")
+      the_apartment.status = "Unsold"
+      the_apartment.description = params.fetch("query_description")
+      the_apartment.user_id = @current_user.id
+      the_apartment.photos_count = 0
+      the_apartment.interested_buyers_count = 0
 
 
-    if the_apartment.valid?
-      the_apartment.save
-    
-      redirect_to("/", {:notice => "Apartment created successfully."})
-    else
-      redirect_to("/", { :notice => "Apartment failed to create successfully." })
-    end
+      if the_apartment.valid? and @current_user.apt_id == nil 
+        the_apartment.save
+        @current_user.apt_id = the_apartment.id
+        @current_user.save
+
+        the_photo = Photo.new
+        the_photo.apt_id = the_apartment.id
+        the_photo.picture = params.fetch("query_picture")
+
+        if the_photo.valid?
+          the_photo.save
+          redirect_to("/", { :notice => "Apartment created successfully." })
+        else
+          redirect_to("/", { :notice => "Apartment created yet photos failed." })
+        end
+      
+
+      else
+        redirect_to("/", { :notice => "Apartment failed to create successfully." })
+      end
   end
 
   def update

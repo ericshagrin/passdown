@@ -1,8 +1,18 @@
 <div>
   <div>
     <h1>
-      Apartment #<%= @the_apartment.id %> details
+      Apartment @ <%= @the_apartment.location %> 
     </h1>
+
+<%if @current_user != nil %>
+<%if @current_user.apt_id == @the_apartment.id %>  
+  <h2>
+    This is your apartment!
+  </h2>
+<%end%>
+<%end %>
+
+     <img src="<%= Photo.where({ :apt_id=> @the_apartment.id }).first() %>" class="img-responsive">
 
     <div>
       <div>
@@ -192,11 +202,8 @@
       </div>
 
       <div>
-        <label for="photos_count_box">
-          Photos count
-        </label>
 
-        <input type="text" id="photos_count_box" name="query_photos_count" value="<%= @the_apartment.photos_count %>">
+        <input type="hidden" id="photos_count_box" name="query_photos_count" value="<%= @the_apartment.photos_count %>">
       </div>
 
 
@@ -272,13 +279,6 @@
   <div>
     <table>
       <tr>
-        <th>
-          ID
-        </th>
-
-        <th>
-          Apt
-        </th>
 
         <th>
           Email
@@ -309,14 +309,6 @@
       
       <tr>
         <td>
-          <%= an_interested_buyer.id %>
-        </td>
-
-        <td>
-          <%= an_interested_buyer.apt_id %>
-        </td>
-
-        <td>
           <%= an_interested_buyer.email %>
         </td>
 
@@ -333,12 +325,6 @@
         </td>
         <td>
           <%= time_ago_in_words(an_interested_buyer.updated_at) %> ago
-        </td>
-
-        <td>
-          <a href="/interested_buyers/<%= an_interested_buyer.id %>">
-            Show details
-          </a>
         </td>
       </tr>
       <% end %>

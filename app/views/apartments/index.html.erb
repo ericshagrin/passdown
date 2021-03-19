@@ -2,7 +2,7 @@
 
 <hr>
 
-<%if @current_user %>
+<%if @current_user and @current_user.apt_id == nil%>
 <div>
   <div>
     <h2>
@@ -30,7 +30,7 @@
         <label for="num_bath_box">
             Number Bathrooms
             <select name="query_num_bath" id="num_bath_box">
-                <option disabled selected value> - select an option - </option>
+                <option selected value=""> - select an option - </option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -47,7 +47,7 @@
         <label for="num_bdrms_box">
             Number Bedrooms
             <select name="query_num_bdrms" id="num_bdrms_box">
-                <option disabled selected value> - select an option - </option>
+                <option value="" "selected"> - select an option - </option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -63,7 +63,7 @@
         <label for="furniture_amt_box">
           Amount of Furniture
           <select name="query_furniture_amt" id="furniture_amt_box">
-              <option disabled selected value> - select an option - </option>
+              <option "selected" value=""> - select an option - </option>
               <option value="fully_furnished">Fully Furnished</option>
               <option value="mostly_furnished">Mostly Furnished</option>
               <option value="mostly_unfurnished">Mostly Unfurnished</option>
@@ -89,7 +89,7 @@
           Picture
         </label>
 
-        <input type="file" id="picture_box" name="query_picture">
+        <input type="file" id="picture_box" name="query_picture" class="form-control">
       </div>
 
 
